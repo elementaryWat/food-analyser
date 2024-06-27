@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import FoodForm from './components/FoodForm';
 import NutrientResult from './components/NutrientResult';
 
 const App: React.FC = () => {
+  const [description, setDescription] = useState("");
   const [nutrientData, setNutrientData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleFoodAnalysis = async (description: string) => {
+  const handleFoodAnalysis = async () => {
     try {
+      setIsLoading(true);
       const response = await fetch('http://localhost:3000/api/analyze-food', {
         method: 'POST',
         headers: {
@@ -16,20 +18,31 @@ const App: React.FC = () => {
       });
       const data = await response.json();
       console.log(data);
-      // setNutrientData(data);
+      setNutrientData(data);
     } catch (error) {
       console.error('Failed to fetch nutrient data:', error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
-    <div className="flex justify-center items-center h-screen w-screen">
-      <div className="p-6 flex flex-col items-center">
-        <h1 className="text-3xl font-bold underline">
-          Food Nutrient Analyzer
-        </h1>
-        <FoodForm onSubmit={handleFoodAnalysis} />
-        <NutrientResult data={nutrientData} />
+    <div className="min-h-screen flex flex-col items-center justify-center bg-background p-4">
+      <h1 className="text-3xl font-bold mb-4 text-foreground">Macronutrient Breakdown</h1>
+      <div className="card w-full bg-card shadow-lg">
+        <div className="card-body p-6">
+          <h2 className="card-title text-primary text-xl mb-4">Food Description</h2>
+          <textarea
+            className="w-full p-2 mb-4 border border-input rounded-lg bg-background text-foreground"
+            placeholder="Enter the description of the plate"
+            onChange={(e) => setDescription(e.target.value)}
+          >
+          </textarea>
+          <button className="btn btn-primary mt-4" onClick={handleFoodAnalysis} disabled={isLoading || !description}>
+            {isLoading ? <span className="spinner" /> : "Analyze"}
+          </button>
+          <NutrientResult data={nutrientData} />
+        </div>
       </div>
     </div>
   );
