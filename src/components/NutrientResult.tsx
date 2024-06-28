@@ -3,6 +3,8 @@ import Alert from './Alert';
 
 interface NutrientData {
     description?: string;
+    serving_size: string;
+    serving_size_g: number;
     carbohydrates: number;
     proteins: number;
     fats: number;
@@ -20,6 +22,12 @@ const NutrientResult: React.FC<Props> = ({ data }) => {
     return (
         <>
             {data.description && <h2 className="text-primary text-2xl">{data.description}</h2>}
+            <div className="mt-4">
+                <h3 className="text-secondary mb-2">Serving Size</h3>
+                <div className="bg-accent text-black p-4 rounded-lg text-center">
+                    <p className="text-lg">{data.serving_size} ({data.serving_size_g + "g" != data.serving_size ? data.serving_size_g : ""}g)</p>
+                </div>
+            </div>
             <div className="mt-4">
                 <h3 className="text-secondary mb-2">Macronutrients</h3>
                 <div className="grid grid-cols-3 gap-4">
