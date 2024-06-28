@@ -1,6 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import NutrientResult from './components/NutrientResult';
 import axios from 'axios';
+import imageCompression from 'browser-image-compression';
+
+async function compressImage(file: File) {
+  const options = {
+    maxSizeMB: 1, // (max file size in MB)
+    maxWidthOrHeight: 1920, // (compressed files will scale down by width or height, keeping the aspect ratio)
+    useWebWorker: true, // (optional, use multi-threading for better performance)
+  };
+
+  try {
+    const compressedFile = await imageCompression(file, options);
+    console.log('Compressed file:', compressedFile);
+    console.log('File size before compression:', file.size);
+    console.log('File size after compression:', compressedFile.size);
+    return compressedFile; // Return the compressed image file
+  } catch (error) {
+    console.error('Error during image compression:', error);
+    throw error; // Rethrow or handle error as needed
+  }
+}
 
 const App: React.FC = () => {
   const [description, setDescription] = useState("");
@@ -29,11 +49,13 @@ const App: React.FC = () => {
         formData = new FormData();
         const fileInput = document.getElementById('photo-upload') as HTMLInputElement;
         if (fileInput && fileInput.files && fileInput.files[0]) {
-          formData.append(
-            "photo",
-            fileInput.files[0],
-            fileInput.files[0].name
-          );
+          const file = fileInput.files[0];
+          if (file.size > 1024 * 1024) {
+            const compressedFile = await compressImage(file);
+            formData.append("photo", compressedFile, compressedFile.name);
+          } else {
+            formData.append("photo", file, file.name);
+          }
         }
       } else {
         formData = JSON.stringify({ description });
