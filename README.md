@@ -5,7 +5,11 @@ Food Analyzer is a web application designed to provide estimated macronutrient b
 ## Features
 
 - Text Analysis: Users can enter a description of their meal, and the application will analyze the text to provide a nutritional breakdown.
+  ![text-analysis](public/description-analysis.png "Getting macro breakdown from a description")
+  
 - Image Analysis: For a more intuitive experience, users can upload an image of their meal. The application supports PNG and JPEG formats and includes image compression for efficient uploading.
+  ![image-analysis](public/image-analysis.png "Getting macro breakdown from an image")
+  
 - Nutrient Data: The application displays a estimated breakdown of macronutrients, including calories, fats, proteins, and carbohydrates.
 - User-Friendly Interface: With a focus on simplicity and ease of use, the application offers a clean and straightforward UI, making food analysis accessible to everyone.
 
