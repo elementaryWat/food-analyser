@@ -29,7 +29,6 @@ const App: React.FC = () => {
         formData = new FormData();
         const fileInput = document.getElementById('photo-upload') as HTMLInputElement;
         if (fileInput && fileInput.files && fileInput.files[0]) {
-          console.log(fileInput.files);
           formData.append(
             "photo",
             fileInput.files[0],
@@ -39,7 +38,7 @@ const App: React.FC = () => {
       } else {
         formData = JSON.stringify({ description });
       }
-      const data = (await axios.post("http://localhost:3000/api/analyze-food", formData)).data;
+      const data = (await axios.post("https://food-analyser-api.vercel.app/api/analyze-food", formData)).data;
       setNutrientData(data);
     } catch (error) {
       console.error('Failed to fetch nutrient data:', error);
