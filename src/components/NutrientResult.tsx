@@ -14,7 +14,8 @@ interface Props {
 }
 
 const NutrientResult: React.FC<Props> = ({ data }) => {
-    if (!data || (Object.keys(data).length) === 0) return <Alert message="No data to display." />
+    if (!data) return null;
+    if ((Object.keys(data).length) === 0) return <Alert message="Invalid food information input." />
 
     return (
         <>

@@ -5,20 +5,16 @@ import imageCompression from 'browser-image-compression';
 
 async function compressImage(file: File) {
   const options = {
-    maxSizeMB: 1, // (max file size in MB)
-    maxWidthOrHeight: 1920, // (compressed files will scale down by width or height, keeping the aspect ratio)
-    useWebWorker: true, // (optional, use multi-threading for better performance)
+    maxSizeMB: 1,
+    useWebWorker: true,
   };
 
   try {
     const compressedFile = await imageCompression(file, options);
-    console.log('Compressed file:', compressedFile);
-    console.log('File size before compression:', file.size);
-    console.log('File size after compression:', compressedFile.size);
-    return compressedFile; // Return the compressed image file
+    return compressedFile;
   } catch (error) {
     console.error('Error during image compression:', error);
-    throw error; // Rethrow or handle error as needed
+    throw error;
   }
 }
 
@@ -43,10 +39,10 @@ const App: React.FC = () => {
 
   const handleFoodAnalysis = async () => {
     try {
+      setNutrientData(null);
       setIsLoading(true);
-      let formData;
+      const formData = new FormData();
       if (isPhotoMode) {
-        formData = new FormData();
         const fileInput = document.getElementById('photo-upload') as HTMLInputElement;
         if (fileInput && fileInput.files && fileInput.files[0]) {
           const file = fileInput.files[0];
@@ -58,7 +54,7 @@ const App: React.FC = () => {
           }
         }
       } else {
-        formData = JSON.stringify({ description });
+        formData.append("description", description)
       }
       const data = (await axios.post("https://food-analyser-api.vercel.app/api/analyze-food", formData)).data;
       setNutrientData(data);
@@ -114,7 +110,7 @@ const App: React.FC = () => {
             </div>
           )}
           <button className="btn btn-primary mt-4" onClick={handleFoodAnalysis} disabled={isDisabled}>
-            {isLoading ? <span className="spinner" /> : "Analyze"}
+            {isLoading ? <span className="loading loading-dots loading-sm"></span> : "Analyze"}
           </button>
           <NutrientResult data={nutrientData} />
         </div>

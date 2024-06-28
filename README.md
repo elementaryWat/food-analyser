@@ -1,30 +1,48 @@
-# React + TypeScript + Vite
+# Food Analyzer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Food Analyzer is a web application designed to provide estimated macronutrient breakdowns based on food descriptions or images. Utilizing a the food analysis API, this application can analyze the nutritional content of various foods, helping users make informed dietary decisions.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Text Analysis: Users can enter a description of their meal, and the application will analyze the text to provide a nutritional breakdown.
+- Image Analysis: For a more intuitive experience, users can upload an image of their meal. The application supports PNG and JPEG formats and includes image compression for efficient uploading.
+- Nutrient Data: The application displays a estimated breakdown of macronutrients, including calories, fats, proteins, and carbohydrates.
+- User-Friendly Interface: With a focus on simplicity and ease of use, the application offers a clean and straightforward UI, making food analysis accessible to everyone.
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+To get a local copy up and running, follow these simple steps.
 
-- Configure the top-level `parserOptions` property like this:
+### Prerequisites
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- Node.js
+- npm
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Installation
+
+1. Clone the repo
+  ```
+  git clone <repository-url>
+  ```
+
+2. Install NPM packages
+  ```
+  npm install
+  ```
+
+3. Start the application
+  ```
+  npm run dev
+  ```
+
+## Usage
+
+1. Select Analysis Mode: Choose between text description and image upload for food analysis.
+2. Enter Food Description or Upload an Image: Based on the selected mode, either type a description of your meal or upload an image.
+3. Analyze: Click the analyze button to submit your input to the food analysis API.
+4. View Results: The nutritional breakdown will be displayed, offering insights into the macronutrient content of your meal.
+
+# Possible Improvements
+
+- History of Analysis: Implement a feature to keep track of previous food analysis results, allowing users to review their past meals and nutritional breakdowns.
+- Daily Target: Introduce a feature that allows users to set a daily macronutrient target based on the analysis results. This will enable better tracking and help users make more informed dietary decisions.
